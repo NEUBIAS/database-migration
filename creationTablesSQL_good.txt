@@ -1,0 +1,175 @@
+CREATE TABLE `Entity` (
+`id_entity` DECIMAL NOT NULL DEFAULT 0 ,
+`id_user_skill` DECIMAL DEFAULT NULL ,
+`id_curator` DECIMAL NOT NULL DEFAULT 0 ,
+`id_paper` DECIMAL DEFAULT NULL ,
+`Title` VARCHAR(255) DEFAULT NULL ,
+`Body` longtext DEFAULT NULL ,
+`Authors` VARCHAR(255) DEFAULT NULL ,
+`Training material` VARCHAR(255) DEFAULT NULL ,
+`LocationPath` VARCHAR(255) DEFAULT NULL ,
+`ImagePath` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_entity`, `id_curator`)
+);
+CREATE TABLE `UserSkill` (
+`id_user_skill` DECIMAL NOT NULL DEFAULT 0 ,
+`Skill` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_user_skill`)
+);
+CREATE TABLE `Tags` (
+`id_tag` DECIMAL NOT NULL DEFAULT 0 ,
+`Name` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_tag`)
+);
+CREATE TABLE `AuthorPaperRelation` (
+`id_author` DECIMAL NOT NULL DEFAULT 0 ,
+`id_paper` DECIMAL NOT NULL DEFAULT 0 ,
+`Position` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_author`, `id_paper`)
+);
+CREATE TABLE `ProgrammingLanguage` (
+`id_language` DECIMAL NOT NULL DEFAULT 0 ,
+`id_entity` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_entity`, `id_language`)
+);
+CREATE TABLE `TagEntityRelation` (
+`id_tag` DECIMAL NOT NULL DEFAULT 0 ,
+`id_entity` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_tag`, `id_entity`)
+);
+CREATE TABLE `AcademicPaper` (
+`id_paper` DECIMAL NOT NULL DEFAULT 0 ,
+`id_type` DECIMAL DEFAULT NULL ,
+`Title` VARCHAR(255) DEFAULT NULL ,
+`Journal` VARCHAR(255) DEFAULT NULL ,
+`Volume` VARCHAR(255) DEFAULT NULL ,
+`Number` VARCHAR(255) DEFAULT NULL ,
+`Pages` VARCHAR(255) DEFAULT NULL ,
+`Year` DECIMAL DEFAULT NULL ,
+`ISSN` VARCHAR(255) DEFAULT NULL ,
+`doi` VARCHAR(255) DEFAULT NULL ,
+`Abstract` longtext DEFAULT NULL ,
+`Date` VARCHAR(255) DEFAULT NULL ,
+`URL` VARCHAR(255) DEFAULT NULL ,
+`ISBN` VARCHAR(255) DEFAULT NULL ,
+`Issue` VARCHAR(255) DEFAULT NULL ,
+`Month` DECIMAL DEFAULT NULL ,
+PRIMARY KEY (`id_paper`)
+);
+CREATE TABLE `Authors` (
+`id_author` DECIMAL NOT NULL DEFAULT 0 ,
+`Complete_name` VARCHAR(255) DEFAULT NULL ,
+`Affiliation` longtext DEFAULT NULL ,
+PRIMARY KEY (`id_author`)
+);
+CREATE TABLE `Workflow` (
+`id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
+`id_entity` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_entity`, `id_workflow`)
+);
+CREATE TABLE `Process` (
+`id_process` DECIMAL NOT NULL DEFAULT 0 ,
+`id_entity` DECIMAL NOT NULL DEFAULT 0 ,
+`EDAM_operation` VARCHAR(255) DEFAULT NULL ,
+`EDAM_data` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_entity`, `id_process`)
+);
+CREATE TABLE `SoftwareArtifact` (
+`id_software` DECIMAL NOT NULL DEFAULT 0 ,
+`id_entity` DECIMAL NOT NULL DEFAULT 0 ,
+`id_type` DECIMAL DEFAULT NULL,
+`License` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_entity`, `id_software`)
+);
+CREATE TABLE `WorkflowProcessRelation` (
+`id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
+`id_process` DECIMAL NOT NULL DEFAULT 0 ,
+`Position` DECIMAL DEFAULT NULL,
+PRIMARY KEY (`id_workflow`, `id_process`)
+);
+CREATE TABLE `WorkflowLanguageRelation` (
+`id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
+`id_language` DECIMAL NOT NULL DEFAULT 0 ,
+`Position` DECIMAL DEFAULT NULL,
+PRIMARY KEY (`id_workflow`, `id_language`)
+);
+CREATE TABLE `SoftwareProcessRelation` (
+`id_software` DECIMAL NOT NULL DEFAULT 0 ,
+`id_process` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_software`, `id_process`)
+);
+CREATE TABLE `SoftwareWorkflowRelation` (
+`id_software` DECIMAL NOT NULL DEFAULT 0 ,
+`id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
+`Position` DECIMAL DEFAULT NULL,
+PRIMARY KEY (`id_software`, `id_workflow`)
+);
+CREATE TABLE `OS` (
+`id_os` DECIMAL NOT NULL DEFAULT 0 ,
+`Name` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_os`)
+);
+CREATE TABLE `TypeSoftware` (
+`id_type` DECIMAL NOT NULL DEFAULT 0 ,
+`Name` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_type`)
+);
+CREATE TABLE `Keywords` (
+`id_keyword` DECIMAL NOT NULL DEFAULT 0 ,
+`Name` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_keyword`)
+);
+CREATE TABLE `KeywordPaperRelation` (
+`id_keyword` DECIMAL NOT NULL DEFAULT 0 ,
+`id_paper` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_keyword`, `id_paper`)
+);
+CREATE TABLE `User` (
+`id_user` DECIMAL NOT NULL DEFAULT 0 ,
+`Name` VARCHAR(255) DEFAULT NULL ,
+`url` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_user`)
+);
+CREATE TABLE `BiblioType` (
+`id_type` DECIMAL NOT NULL DEFAULT 0 ,
+`Name` VARCHAR(255) DEFAULT NULL ,
+PRIMARY KEY (`id_type`)
+);
+CREATE TABLE `SoftwareOSRelation` (
+`id_os` DECIMAL NOT NULL DEFAULT 0 ,
+`id_software` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_os`, `id_software`)
+);
+CREATE TABLE `SoftwareLanguageRelation` (
+`id_software` DECIMAL NOT NULL DEFAULT 0 ,
+`id_language` DECIMAL NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id_software`, `id_language`)
+);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `TagEntityRelation` (`id_entity`);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `ProgrammingLanguage` (`id_entity`);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `Workflow` (`id_entity`);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `Process` (`id_entity`);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `SoftwareArtifact` (`id_entity`);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_user_skill) REFERENCES `UserSkill` (`id_user_skill`);
+ALTER TABLE `Entity` ADD FOREIGN KEY (id_curator) REFERENCES `User` (`id_user`);
+ALTER TABLE `AuthorPaperRelation` ADD FOREIGN KEY (id_author) REFERENCES `Authors` (`id_author`);
+ALTER TABLE `ProgrammingLanguage` ADD FOREIGN KEY (id_language) REFERENCES `SoftwareLanguageRelation` (`id_language`);
+ALTER TABLE `ProgrammingLanguage` ADD FOREIGN KEY (id_language) REFERENCES `WorkflowLanguageRelation` (`id_language`);
+ALTER TABLE `TagEntityRelation` ADD FOREIGN KEY (id_tag) REFERENCES `Tags` (`id_tag`);
+ALTER TABLE `AcademicPaper` ADD FOREIGN KEY (id_paper) REFERENCES `AuthorPaperRelation` (`id_paper`);
+ALTER TABLE `AcademicPaper` ADD FOREIGN KEY (id_paper) REFERENCES `Entity` (`id_paper`);
+ALTER TABLE `AcademicPaper` ADD FOREIGN KEY (id_paper) REFERENCES `KeywordPaperRelation` (`id_paper`);
+ALTER TABLE `AcademicPaper` ADD FOREIGN KEY (id_type) REFERENCES `BiblioType` (`id_type`);
+ALTER TABLE `Workflow` ADD FOREIGN KEY (id_workflow) REFERENCES `SoftwareWorkflowRelation` (`id_workflow`);
+ALTER TABLE `Workflow` ADD FOREIGN KEY (id_workflow) REFERENCES `WorkflowLanguageRelation` (`id_workflow16:20 09/01/2017`);
+ALTER TABLE `Process` ADD FOREIGN KEY (id_process) REFERENCES `WorkflowProcessRelation` (`id_process`);
+ALTER TABLE `Process` ADD FOREIGN KEY (id_process) REFERENCES `SoftwareProcessRelation` (`id_process`);
+ALTER TABLE `SoftwareArtifact` ADD FOREIGN KEY (id_software) REFERENCES `SoftwareWorkflowRelation` (`id_software`);
+ALTER TABLE `SoftwareArtifact` ADD FOREIGN KEY (id_software) REFERENCES `SoftwareOSRelation` (`id_software`);
+ALTER TABLE `SoftwareArtifact` ADD FOREIGN KEY (id_software) REFERENCES `SoftwareLanguageRelation` (`id_software`);
+ALTER TABLE `WorkflowProcessRelation` ADD FOREIGN KEY (id_workflow) REFERENCES `Workflow` (`id_workflow`);
+ALTER TABLE `WorkflowLanguageRelation` ADD FOREIGN KEY (id_workflow) REFERENCES `Workflow` (`id_workflow`);
+ALTER TABLE `SoftwareProcessRelation` ADD FOREIGN KEY (id_software) REFERENCES `SoftwareArtifact` (`id_software`);
+ALTER TABLE `OS` ADD FOREIGN KEY (id_os) REFERENCES `SoftwareOSRelation` (`id_os`);
+ALTER TABLE `TypeSoftware` ADD FOREIGN KEY (id_type) REFERENCES `SoftwareArtifact` (`id_type`);
+ALTER TABLE `KeywordPaperRelation` ADD FOREIGN KEY (id_keyword) REFERENCES `Keywords` (`id_keyword`);
