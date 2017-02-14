@@ -1,3 +1,6 @@
+set foreign_key_checks=0;
+/*!40101 SET NAMES utf8 */;
+
 CREATE TABLE `Entity` (
 `id_entity` DECIMAL NOT NULL DEFAULT 0 ,
 `id_user_skill` DECIMAL DEFAULT NULL ,
@@ -10,33 +13,39 @@ CREATE TABLE `Entity` (
 `LocationPath` VARCHAR(255) DEFAULT NULL ,
 `ImagePath` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_entity`, `id_curator`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `UserSkill` (
 `id_user_skill` DECIMAL NOT NULL DEFAULT 0 ,
 `Skill` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_user_skill`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `Tags` (
 `id_tag` DECIMAL NOT NULL DEFAULT 0 ,
 `Name` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_tag`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `AuthorPaperRelation` (
 `id_author` DECIMAL NOT NULL DEFAULT 0 ,
 `id_paper` DECIMAL NOT NULL DEFAULT 0 ,
 `Position` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_author`, `id_paper`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `ProgrammingLanguage` (
 `id_language` DECIMAL NOT NULL DEFAULT 0 ,
 `id_entity` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_entity`, `id_language`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `TagEntityRelation` (
 `id_tag` DECIMAL NOT NULL DEFAULT 0 ,
 `id_entity` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_tag`, `id_entity`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `AcademicPaper` (
 `id_paper` DECIMAL NOT NULL DEFAULT 0 ,
 `id_type` DECIMAL DEFAULT NULL ,
@@ -55,96 +64,113 @@ CREATE TABLE `AcademicPaper` (
 `Issue` VARCHAR(255) DEFAULT NULL ,
 `Month` DECIMAL DEFAULT NULL ,
 PRIMARY KEY (`id_paper`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `Authors` (
 `id_author` DECIMAL NOT NULL DEFAULT 0 ,
 `Complete_name` VARCHAR(255) DEFAULT NULL ,
 `Affiliation` longtext DEFAULT NULL ,
 PRIMARY KEY (`id_author`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `Workflow` (
 `id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
 `id_entity` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_entity`, `id_workflow`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `Process` (
 `id_process` DECIMAL NOT NULL DEFAULT 0 ,
 `id_entity` DECIMAL NOT NULL DEFAULT 0 ,
 `EDAM_operation` VARCHAR(255) DEFAULT NULL ,
 `EDAM_data` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_entity`, `id_process`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `SoftwareArtifact` (
 `id_software` DECIMAL NOT NULL DEFAULT 0 ,
 `id_entity` DECIMAL NOT NULL DEFAULT 0 ,
 `id_type` DECIMAL DEFAULT NULL,
 `License` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_entity`, `id_software`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `WorkflowProcessRelation` (
 `id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
 `id_process` DECIMAL NOT NULL DEFAULT 0 ,
 `Position` DECIMAL DEFAULT NULL,
 PRIMARY KEY (`id_workflow`, `id_process`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `WorkflowLanguageRelation` (
 `id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
 `id_language` DECIMAL NOT NULL DEFAULT 0 ,
 `Position` DECIMAL DEFAULT NULL,
 PRIMARY KEY (`id_workflow`, `id_language`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `SoftwareProcessRelation` (
 `id_software` DECIMAL NOT NULL DEFAULT 0 ,
 `id_process` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_software`, `id_process`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `SoftwareWorkflowRelation` (
 `id_software` DECIMAL NOT NULL DEFAULT 0 ,
 `id_workflow` DECIMAL NOT NULL DEFAULT 0 ,
 `Position` DECIMAL DEFAULT NULL,
 PRIMARY KEY (`id_software`, `id_workflow`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `OS` (
 `id_os` DECIMAL NOT NULL DEFAULT 0 ,
 `Name` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_os`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `TypeSoftware` (
 `id_type` DECIMAL NOT NULL DEFAULT 0 ,
 `Name` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_type`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `Keywords` (
 `id_keyword` DECIMAL NOT NULL DEFAULT 0 ,
 `Name` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_keyword`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `KeywordPaperRelation` (
 `id_keyword` DECIMAL NOT NULL DEFAULT 0 ,
 `id_paper` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_keyword`, `id_paper`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `User` (
 `id_user` DECIMAL NOT NULL DEFAULT 0 ,
 `Name` VARCHAR(255) DEFAULT NULL ,
 `url` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_user`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `BiblioType` (
 `id_type` DECIMAL NOT NULL DEFAULT 0 ,
 `Name` VARCHAR(255) DEFAULT NULL ,
 PRIMARY KEY (`id_type`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `SoftwareOSRelation` (
 `id_os` DECIMAL NOT NULL DEFAULT 0 ,
 `id_software` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_os`, `id_software`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `SoftwareLanguageRelation` (
 `id_software` DECIMAL NOT NULL DEFAULT 0 ,
 `id_language` DECIMAL NOT NULL DEFAULT 0 ,
 PRIMARY KEY (`id_software`, `id_language`)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `TagEntityRelation` (`id_entity`);
 ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `ProgrammingLanguage` (`id_entity`);
 ALTER TABLE `Entity` ADD FOREIGN KEY (id_entity) REFERENCES `Workflow` (`id_entity`);

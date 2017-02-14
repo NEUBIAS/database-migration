@@ -18,9 +18,8 @@ if(exist):
     curPerso.execute(sql)
 sql = 'CREATE DATABASE db_biii_perso'
 curPerso.execute(sql)
-sql = 'ALTER DATABASE db_biii_perso CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci'
+sql = 'ALTER DATABASE db_biii_perso CHARACTER SET utf8 COLLATE utf8_general_ci'
 curPerso.execute(sql)
-1/0
 dbPerso = MySQLdb.connect(host=host, user='root', passwd=passwd, db='db_biii_perso')
 curPerso = dbPerso.cursor()
 with open('creationTablesSQL_good.txt', 'r') as myfile:

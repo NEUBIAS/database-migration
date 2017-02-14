@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données :  `db_biii_perso`
@@ -43,7 +43,7 @@ CREATE TABLE `academicpaper` (
   `ISBN` varchar(255) DEFAULT NULL,
   `Issue` varchar(255) DEFAULT NULL,
   `Month` decimal(10,0) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `academicpaper`
@@ -148,7 +148,7 @@ CREATE TABLE `authorpaperrelation` (
   `id_author` decimal(10,0) NOT NULL DEFAULT '0',
   `id_paper` decimal(10,0) NOT NULL DEFAULT '0',
   `Position` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `authorpaperrelation`
@@ -652,7 +652,7 @@ CREATE TABLE `authors` (
   `id_author` decimal(10,0) NOT NULL DEFAULT '0',
   `Complete_name` varchar(255) DEFAULT NULL,
   `Affiliation` longtext
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `authors`
@@ -1150,7 +1150,7 @@ INSERT INTO `authors` (`id_author`, `Complete_name`, `Affiliation`) VALUES
 CREATE TABLE `bibliotype` (
   `id_type` decimal(10,0) NOT NULL DEFAULT '0',
   `Name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `bibliotype`
@@ -1211,7 +1211,7 @@ CREATE TABLE `entity` (
   `Training material` varchar(255) DEFAULT NULL,
   `LocationPath` varchar(255) DEFAULT NULL,
   `ImagePath` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `entity`
@@ -2428,7 +2428,7 @@ INSERT INTO `entity` (`id_entity`, `id_user_skill`, `id_curator`, `id_paper`, `T
 CREATE TABLE `keywordpaperrelation` (
   `id_keyword` decimal(10,0) NOT NULL DEFAULT '0',
   `id_paper` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `keywordpaperrelation`
@@ -2955,7 +2955,7 @@ INSERT INTO `keywordpaperrelation` (`id_keyword`, `id_paper`) VALUES
 CREATE TABLE `keywords` (
   `id_keyword` decimal(10,0) NOT NULL DEFAULT '0',
   `Name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `keywords`
@@ -3283,7 +3283,7 @@ INSERT INTO `keywords` (`id_keyword`, `Name`) VALUES
 CREATE TABLE `os` (
   `id_os` decimal(10,0) NOT NULL DEFAULT '0',
   `Name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `os`
@@ -3313,7 +3313,7 @@ CREATE TABLE `process` (
   `id_entity` decimal(10,0) NOT NULL DEFAULT '0',
   `EDAM_operation` varchar(255) DEFAULT NULL,
   `EDAM_data` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `process`
@@ -4121,7 +4121,7 @@ INSERT INTO `process` (`id_process`, `id_entity`, `EDAM_operation`, `EDAM_data`)
 CREATE TABLE `programminglanguage` (
   `id_language` decimal(10,0) NOT NULL DEFAULT '0',
   `id_entity` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `programminglanguage`
@@ -4161,7 +4161,7 @@ CREATE TABLE `softwareartifact` (
   `id_entity` decimal(10,0) NOT NULL DEFAULT '0',
   `id_type` decimal(10,0) DEFAULT NULL,
   `License` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `softwareartifact`
@@ -4275,7 +4275,7 @@ INSERT INTO `softwareartifact` (`id_software`, `id_entity`, `id_type`, `License`
 CREATE TABLE `softwarelanguagerelation` (
   `id_software` decimal(10,0) NOT NULL DEFAULT '0',
   `id_language` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `softwarelanguagerelation`
@@ -4362,7 +4362,7 @@ INSERT INTO `softwarelanguagerelation` (`id_software`, `id_language`) VALUES
 CREATE TABLE `softwareosrelation` (
   `id_os` decimal(10,0) NOT NULL DEFAULT '0',
   `id_software` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `softwareosrelation`
@@ -4551,7 +4551,7 @@ INSERT INTO `softwareosrelation` (`id_os`, `id_software`) VALUES
 CREATE TABLE `softwareprocessrelation` (
   `id_software` decimal(10,0) NOT NULL DEFAULT '0',
   `id_process` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `softwareprocessrelation`
@@ -4726,7 +4726,7 @@ CREATE TABLE `softwareworkflowrelation` (
   `id_software` decimal(10,0) NOT NULL DEFAULT '0',
   `id_workflow` decimal(10,0) NOT NULL DEFAULT '0',
   `Position` decimal(10,0) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `softwareworkflowrelation`
@@ -4958,7 +4958,7 @@ INSERT INTO `softwareworkflowrelation` (`id_software`, `id_workflow`, `Position`
 CREATE TABLE `tagentityrelation` (
   `id_tag` decimal(10,0) NOT NULL DEFAULT '0',
   `id_entity` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `tagentityrelation`
@@ -13504,7 +13504,7 @@ INSERT INTO `tagentityrelation` (`id_tag`, `id_entity`) VALUES
 CREATE TABLE `tags` (
   `id_tag` decimal(10,0) NOT NULL DEFAULT '0',
   `Name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `tags`
@@ -16143,7 +16143,7 @@ INSERT INTO `tags` (`id_tag`, `Name`) VALUES
 CREATE TABLE `typesoftware` (
   `id_type` decimal(10,0) NOT NULL DEFAULT '0',
   `Name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `typesoftware`
@@ -16165,7 +16165,7 @@ CREATE TABLE `user` (
   `id_user` decimal(10,0) NOT NULL DEFAULT '0',
   `Name` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `user`
@@ -16305,7 +16305,7 @@ INSERT INTO `user` (`id_user`, `Name`, `url`) VALUES
 CREATE TABLE `userskill` (
   `id_user_skill` decimal(10,0) NOT NULL DEFAULT '0',
   `Skill` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `userskill`
@@ -16419,7 +16419,7 @@ INSERT INTO `userskill` (`id_user_skill`, `Skill`) VALUES
 CREATE TABLE `workflow` (
   `id_workflow` decimal(10,0) NOT NULL DEFAULT '0',
   `id_entity` decimal(10,0) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `workflow`
@@ -16589,7 +16589,7 @@ CREATE TABLE `workflowlanguagerelation` (
   `id_workflow` decimal(10,0) NOT NULL DEFAULT '0',
   `id_language` decimal(10,0) NOT NULL DEFAULT '0',
   `Position` decimal(10,0) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `workflowlanguagerelation`
@@ -16760,7 +16760,7 @@ CREATE TABLE `workflowprocessrelation` (
   `id_workflow` decimal(10,0) NOT NULL DEFAULT '0',
   `id_process` decimal(10,0) NOT NULL DEFAULT '0',
   `Position` decimal(10,0) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `workflowprocessrelation`
