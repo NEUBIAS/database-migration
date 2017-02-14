@@ -1,8 +1,13 @@
 #!/usr/bin/env python
 
+import os
 import MySQLdb
+
+host = os.environ.get("MYSQL_HOST", "127.0.0.1")
+passwd = os.environ.get("MYSQL_PASS", "pass")
+
 #Creation of the datamodel for bise independant of any cms
-dbPerso = MySQLdb.connect(host='localhost', user='root', passwd='')
+dbPerso = MySQLdb.connect(host=host, user='root', passwd=passwd)
 curPerso = dbPerso.cursor()
 #Test if db_biii_perso exists, if yes drop the complete database
 sql = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'db_biii_perso'"
@@ -15,16 +20,17 @@ sql = 'CREATE DATABASE db_biii_perso'
 curPerso.execute(sql)
 sql = 'ALTER DATABASE db_biii_perso CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci'
 curPerso.execute(sql)
-dbPerso = MySQLdb.connect(host='localhost', user='root', passwd='', db='db_biii_perso')
+1/0
+dbPerso = MySQLdb.connect(host=host, user='root', passwd=passwd, db='db_biii_perso')
 curPerso = dbPerso.cursor()
-with open('D:/Biii/creationTablesSQL_good.txt', 'r') as myfile:
+with open('creationTablesSQL_good.txt', 'r') as myfile:
     sql = myfile.read()
 curPerso.execute(sql)
 curPerso.close()
 curPerso = dbPerso.cursor()
 
 #Connection to the database of biii in drupal 7.x
-dbDrupal = MySQLdb.connect(host='localhost', user='root', passwd='', db='drupal_biii')
+dbDrupal = MySQLdb.connect(host=host, user='root', passwd=passwd, db='drupal_biii')
 cur = dbDrupal.cursor()
 #Get all authors
 cur.execute("SELECT bcd.cid, bcd.name, bcd.affiliation FROM biblio_contributor_data bcd")
