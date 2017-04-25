@@ -1,0 +1,131 @@
+UUID,VID,NAME,PARENT
+http://edamontology.org#Machine_learning,edam_bioimaging,Machine learning,http://edamontology.org/topic_0003
+http://edamontology.org#Object_detection,edam_bioimaging,Object detection,http://edamontology.org#Image_classification
+http://edamontology.org#Image_filtering,edam_bioimaging,Image filtering,http://edamontology.org#Test_processing
+http://edamontology.org#Image_decomposition,edam_bioimaging,Image decomposition,http://edamontology.org#Test_processing
+http://edamontology.org#Image_enhancement,edam_bioimaging,Image enhancement,http://edamontology.org#Test_processing
+http://edamontology.org#Image_restoration,edam_bioimaging,Image restoration,http://edamontology.org#Test_processing
+http://edamontology.org#Image_registration,edam_bioimaging,Elastic alignment,http://edamontology.org#Test_processing
+http://edamontology.org#hdr,edam_bioimaging,hdr,http://edamontology.org/format_1915
+http://edamontology.org#Noise,edam_bioimaging,Noise,http://edamontology.org#Image_filtering
+http://edamontology.org#Active_meshes,edam_bioimaging,Active meshes,http://edamontology.org#Image_tracking
+http://edamontology.org#Speed,edam_bioimaging,Speed,http://edamontology.org#Image_tracking
+http://edamontology.org#Time,edam_bioimaging,Time,http://edamontology.org#Image_geometry
+http://edamontology.org#vsi,edam_bioimaging,vsi,http://edamontology.org/format_1915
+http://edamontology.org#Image_segmentation,edam_bioimaging,Image segmentation,http://edamontology.org#Test_processing
+http://edamontology.org#Plotting,edam_bioimaging,Plotting,http://edamontology.org/operation_0004
+http://edamontology.org#Image_thresholding,edam_bioimaging,Image thresholding,http://edamontology.org#Image_segmentation
+http://edamontology.org#Image_tracking,edam_bioimaging,Image tracking,http://edamontology.org#Image_analysis
+http://edamontology.org#2D_dataset,edam_bioimaging,2D image,http://edamontology.org/data_0006
+http://edamontology.org#Widefield_microscopy,edam_bioimaging,Widefield microscopy,http://edamontology.org#Fluorescent_microscopy
+http://edamontology.org#Interactive_segmentation,edam_bioimaging,Interactive segmentation,http://edamontology.org#Image_segmentation
+http://edamontology.org#Image_metadata,edam_bioimaging,Image metadata,http://edamontology.org/data_0006
+http://edamontology.org#jpg,edam_bioimaging,jpg,http://edamontology.org/format_1915
+http://edamontology.org#Image_deconvolution,edam_bioimaging,Image deconvolution,http://edamontology.org#Test_processing
+http://edamontology.org#Electron_microscopy,edam_bioimaging,Electron microscopy,http://edamontology.org#Microscopy
+http://edamontology.org#sm3,edam_bioimaging,sm3,http://edamontology.org/format_1915
+http://edamontology.org#Feature_extraction,edam_bioimaging,Feature extraction,http://edamontology.org#Image_analysis
+http://edamontology.org#Convolution,edam_bioimaging,Convolution,http://edamontology.org#Image_filtering
+http://edamontology.org#Contours,edam_bioimaging,Contours,http://edamontology.org#Image_segmentation
+http://edamontology.org#3D_dataset,edam_bioimaging,3D image,http://edamontology.org/data_0006
+http://edamontology.org#Wavelet_transformation,edam_bioimaging,Wavelet transformation,http://edamontology.org#Test_processing
+http://edamontology.org#Skeletonization,edam_bioimaging,Skeletonisation,http://edamontology.org#Morphological_operations
+http://edamontology.org#tiff,edam_bioimaging,tiff,http://edamontology.org/format_1915
+http://edamontology.org#ims,edam_bioimaging,ims,http://edamontology.org/format_1915
+http://edamontology.org#Local_thresholding,edam_bioimaging,Local thresholding,http://edamontology.org#Image_segmentation
+http://edamontology.org#Image_acquisition,edam_bioimaging,Image acquisition,http://edamontology.org/topic_0003
+http://edamontology.org#Adaptative_thresholding,edam_bioimaging,Adaptative thresholding,http://edamontology.org#Image_segmentation
+http://edamontology.org#Projection,edam_bioimaging,Projection,http://edamontology.org#Test_processing
+http://edamontology.org#Image_visualisation,edam_bioimaging,ImVisualisation,http://edamontology.org/operation_0004
+http://edamontology.org#Principal_component_analysis,edam_bioimaging,Principal component analysis,http://edamontology.org/operation_0004
+http://edamontology.org#mpeg,edam_bioimaging,mpeg,http://edamontology.org/format_1915
+http://edamontology.org#Warping,edam_bioimaging,Warping,http://edamontology.org#Image_registration
+http://edamontology.org/data_0006,edam_bioimaging,Data,
+http://edamontology.org#Overlay,edam_bioimaging,Overlay,http://edamontology.org#Image_visualisation
+http://edamontology.org#Closing,edam_bioimaging,Closing,http://edamontology.org#Morphological_operations
+http://edamontology.org#Light_microscopy,edam_bioimaging,Light microscopy,http://edamontology.org#Microscopy
+http://edamontology.org#Erosion,edam_bioimaging,Erosion,http://edamontology.org#Morphological_operations
+http://edamontology.org#Active_contours,edam_bioimaging,Active contours,http://edamontology.org#Image_segmentation
+http://edamontology.org#Neuron_image_analysis,edam_bioimaging,Neuron image analysis,http://edamontology.org#Image_analysis
+http://edamontology.org#Montage,edam_bioimaging,Montage,http://edamontology.org#Test_processing
+http://edamontology.org#Transform,edam_bioimaging,Transform,http://edamontology.org#Test_processing
+http://edamontology.org#Particle_tracking,edam_bioimaging,Particle tracking,http://edamontology.org#Image_tracking
+http://edamontology.org#Spot_extraction,edam_bioimaging,Spot extraction,http://edamontology.org#Feature_extraction
+http://edamontology.org#Light-sheet_microscopy,edam_bioimaging,Light-sheet microscopy,http://edamontology.org#Microscopy
+http://edamontology.org#sm2,edam_bioimaging,sm2,http://edamontology.org/format_1915
+http://edamontology.org#Texture_features,edam_bioimaging,Texture features,http://edamontology.org#Feature_extraction
+http://edamontology.org#Morphological_operations,edam_bioimaging,Morphological operation,http://edamontology.org#Test_processing
+http://edamontology.org#Image_batch_processing,edam_bioimaging,Batch processing,http://edamontology.org#Test_processing
+http://edamontology.org#Image_classification,edam_bioimaging,Image classification,http://edamontology.org#Image_analysis
+http://edamontology.org#Time-lapse_data,edam_bioimaging,Time-lapse data,http://edamontology.org#Image_geometry
+http://edamontology.org/operation_0004,edam_bioimaging,Operation,
+http://edamontology.org/topic_0003,edam_bioimaging,Topic,
+http://edamontology.org#Statistics,edam_bioimaging,Statistics,http://edamontology.org/topic_0003
+http://edamontology.org#Dilation,edam_bioimaging,Dilation,http://edamontology.org#Morphological_operations
+http://edamontology.org#txt,edam_bioimaging,txt,http://edamontology.org/format_1915
+http://edamontology.org#Shape_features,edam_bioimaging,Shape features,http://edamontology.org#Feature_extraction
+http://edamontology.org#Image_geometry,edam_bioimaging,Image geometry,http://edamontology.org/data_0006
+http://edamontology.org#Image_skeletoning,edam_bioimaging,Image skeletoning,http://edamontology.org#Image_decomposition
+http://edamontology.org#Volume,edam_bioimaging,Volume,http://edamontology.org#Image_geometry
+http://edamontology.org#Greyscale,edam_bioimaging,Greyscale,http://edamontology.org#Image_metadata
+http://edamontology.org#Texture_extraction,edam_bioimaging,Texture extraction,http://edamontology.org#Feature_extraction
+http://edamontology.org#Geometrical_transform,edam_bioimaging,Geometrical transform,http://edamontology.org#Test_processing
+http://edamontology.org#Topology,edam_bioimaging,Topology,http://edamontology.org#Morphological_operations
+http://edamontology.org#Anaglyph,edam_bioimaging,Anaglyph,http://edamontology.org#Image_visualisation
+http://edamontology.org#Image_transformation,edam_bioimaging,Image transformation,http://edamontology.org#Test_processing
+http://edamontology.org#Image_stack,edam_bioimaging,Image stack,http://edamontology.org#Image_geometry
+http://edamontology.org#tif,edam_bioimaging,tif,http://edamontology.org/format_1915
+http://edamontology.org/format_1915,edam_bioimaging,Format,
+http://edamontology.org#Watershed,edam_bioimaging,Watershed,http://edamontology.org#Image_segmentation
+http://edamontology.org#ism,edam_bioimaging,ism,http://edamontology.org/format_1915
+http://edamontology.org#Pixel_classification,edam_bioimaging,Pixel classification,http://edamontology.org#Image_segmentation
+http://edamontology.org#Digital_histology,edam_bioimaging,Digital histology,http://edamontology.org/topic_0003
+http://edamontology.org#Intensity,edam_bioimaging,Intensity,http://edamontology.org#Image_metadata
+http://edamontology.org#4D_dataset,edam_bioimaging,4D image,http://edamontology.org/data_0006
+http://edamontology.org#raw,edam_bioimaging,raw,http://edamontology.org/format_1915
+http://edamontology.org#Image_reconstruction,edam_bioimaging,Image reconstruction,http://edamontology.org#Test_processing
+http://edamontology.org#roi,edam_bioimaging,roi,http://edamontology.org/data_0006
+http://edamontology.org#Illumination_correction,edam_bioimaging,Illumination correction,http://edamontology.org#Image_restoration
+http://edamontology.org#Particle_extraction,edam_bioimaging,Particle extraction,http://edamontology.org#Feature_extraction
+http://edamontology.org#Trajectory,edam_bioimaging,Trajectory,http://edamontology.org#Image_tracking
+http://edamontology.org#Time_series,edam_bioimaging,Time series,http://edamontology.org#Image_geometry
+http://edamontology.org#Rotation,edam_bioimaging,Rotation,http://edamontology.org#Geometrical_transform
+http://edamontology.org#Volume_rendering,edam_bioimaging,Volume rendering,http://edamontology.org#Image_visualisation
+http://edamontology.org#Denoising,edam_bioimaging,Denoising,http://edamontology.org#Image_filtering
+http://edamontology.org#csv,edam_bioimaging,csv,http://edamontology.org/format_1915
+http://edamontology.org#Super-resolution_microscopy,edam_bioimaging,Super-resolution microscopy,http://edamontology.org#Microscopy
+http://edamontology.org#Homogeneity,edam_bioimaging,Homogeneity,http://edamontology.org#Feature_extraction
+http://edamontology.org#scn,edam_bioimaging,scn,http://edamontology.org/format_1915
+http://edamontology.org#Deformation,edam_bioimaging,Deformation,http://edamontology.org#Image_registration
+http://edamontology.org#Edge_detection,edam_bioimaging,Edge detection,http://edamontology.org#Image_segmentation
+http://edamontology.org#Image_tracing,edam_bioimaging,Image tracing,http://edamontology.org#Test_processing
+http://edamontology.org#Crop,edam_bioimaging,Crop,http://edamontology.org#Test_processing
+http://edamontology.org#Cell_counting,edam_bioimaging,Cell counting,http://edamontology.org#Image_analysis
+http://edamontology.org#img,edam_bioimaging,img,http://edamontology.org/format_1915
+http://edamontology.org#1D_dataset,edam_bioimaging,1D image,http://edamontology.org/data_0006
+http://edamontology.org#Image_colocalization,edam_bioimaging,Image colocalization,http://edamontology.org#Image_analysis
+http://edamontology.org#Image_smoothing,edam_bioimaging,Smoothing,http://edamontology.org#Image_filtering
+http://edamontology.org#Fluorescent_microscopy,edam_bioimaging,Fluorescent microscopy,http://edamontology.org#Microscopy
+http://edamontology.org#High_content_screening,edam_bioimaging,High content screening,http://edamontology.org/topic_0003
+http://edamontology.org#Image_analysis,edam_bioimaging,Image analysis,http://edamontology.org/operation_0004
+http://edamontology.org#Microscopy,edam_bioimaging,Microscopy,http://edamontology.org/topic_0003
+http://edamontology.org#Binary_format,edam_bioimaging,Binary_format,http://edamontology.org/format_1915
+http://edamontology.org#Detection,edam_bioimaging,Detection,http://edamontology.org/operation_0004
+http://edamontology.org#hdf5,edam_bioimaging,hdf5,http://edamontology.org/format_1915
+http://edamontology.org#avi,edam_bioimaging,avi,http://edamontology.org/format_1915
+http://edamontology.org#Optical_flow_analysis,edam_bioimaging,Optical flow analysis,http://edamontology.org#Image_analysis
+http://edamontology.org#dat,edam_bioimaging,dat,http://edamontology.org/format_1915
+http://edamontology.org#Distance_transform,edam_bioimaging,Distance transform,http://edamontology.org#Test_processing
+http://edamontology.org#Cell_segmentation,edam_bioimaging,Cell segmentation,http://edamontology.org#Image_segmentation
+http://edamontology.org#Opening,edam_bioimaging,Opening,http://edamontology.org#Morphological_operations
+http://edamontology.org#Image_measurement,edam_bioimaging,Image measurement,http://edamontology.org#Feature_extraction
+http://edamontology.org#Linear_transformation,edam_bioimaging,Linear transformation,http://edamontology.org#Image_registration
+http://edamontology.org#xml,edam_bioimaging,xml,http://edamontology.org/format_1915
+http://edamontology.org#Test_processing,edam_bioimaging,Test processing,http://edamontology.org/operation_0004
+http://edamontology.org#stk,edam_bioimaging,stk,http://edamontology.org/format_1915
+http://edamontology.org#Image_histogram,edam_bioimaging,Image histogram,http://edamontology.org#Image_analysis
+http://edamontology.org#Cell_tracking,edam_bioimaging,Cell tracking,http://edamontology.org#Image_tracking
+http://edamontology.org#Colour,edam_bioimaging,Colour,http://edamontology.org#Image_metadata
+http://edamontology.org#Image_stitching,edam_bioimaging,Image stitching,http://edamontology.org#Test_processing
+http://edamontology.org#Deconvolution,edam_bioimaging,Deconvolution,http://edamontology.org#Image_restoration
+http://edamontology.org#Test,edam_bioimaging,Test,http://edamontology.org#Detection
