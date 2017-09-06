@@ -1,0 +1,127 @@
+{
+  "uuid": [
+    {
+      "value": "68b70047-8253-42d1-8c7c-23b5fc211048"
+    }
+  ],
+  "vid": [
+    {
+      "value": 2098
+    }
+  ],
+  "langcode": [
+    {
+      "value": "en"
+    }
+  ],
+  "type": [
+    {
+      "target_id": "software"
+    }
+  ],
+  "status": [
+    {
+      "value": true
+    }
+  ],
+  "title": [
+    {
+      "value": "WIS-NeuroMath"
+    }
+  ],
+  "created": [
+    {
+      "value": 1381498284
+    }
+  ],
+  "promote": [
+    {
+      "value": true
+    }
+  ],
+  "sticky": [
+    {
+      "value": false
+    }
+  ],
+  "default_langcode": [
+    {
+      "value": true
+    }
+  ],
+  "path": [],
+  "synonyms": [],
+  "body": [
+    {
+      "value": "WIS-NeuroMath - is a software tool for automated analysis and quantification of fluorescent microscopy images of Nerve cells, in both in vivo and in vitro preparations. It allows for accurate detection of neurites in challenging images. Following neurite detection, different types of processing can be carried: Cell Morphology of cultured neurons, Neurite Length Analysis and Ganglion Explant Analysis. \r\nUsefull also for angiogenesis analysis.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "format": "basic_html",
+      "summary": ""
+    }
+  ],
+  "field_attribution_instructions": [],
+  "field_free_tagging": [],
+  "field_has_author": [
+    {
+      "value": "Ofra Golani, Meirav Galun, Ida Rishal, Michael Fainzilber"
+    }
+  ],
+  "field_has_biological_terms": [],
+  "field_has_comparison": [],
+  "field_has_documentation": [],
+  "field_has_doi": [
+    {
+      "value": "http://dx.doi.org/10.1002/dneu.22061"
+    }
+  ],
+  "field_has_entry_curator": [
+    {
+      "target_id": "80"
+    }
+  ],
+  "field_has_function": [],
+  "field_has_interaction_level": [
+    {
+      "target_id": "3574"
+    }
+  ],
+  "field_has_license": [
+    {
+      "value": "free for non-profit use"
+    }
+  ],
+  "field_has_location": [
+    {
+      "uri": "http://www.weizmann.ac.il/vet/IC/software/wis-neuromath",
+      "title": "",
+      "options": []
+    }
+  ],
+  "field_has_programming_language": [],
+  "field_has_reference_publication": [],
+  "field_has_topic": [],
+  "field_has_usage_example": [],
+  "field_image": [],
+  "field_is_compatible_with": [],
+  "field_is_covered_by_training_mat": [],
+  "field_is_dependent_of": [],
+  "field_license_openness": [
+    {
+      "target_id": "3575"
+    }
+  ],
+  "field_platform": [
+    {
+      "target_id": "31"
+    }
+  ],
+  "field_supported_image_dimension": [
+    {
+      "target_id": "3561"
+    }
+  ],
+  "field_type": [
+    {
+      "target_id": "3567"
+    }
+  ]
+}

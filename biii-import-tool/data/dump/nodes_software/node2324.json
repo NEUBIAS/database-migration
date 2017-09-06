@@ -1,0 +1,115 @@
+{
+  "uuid": [
+    {
+      "value": "20c515cd-9330-41a2-9211-f053bd688801"
+    }
+  ],
+  "vid": [
+    {
+      "value": 2324
+    }
+  ],
+  "langcode": [
+    {
+      "value": "en"
+    }
+  ],
+  "type": [
+    {
+      "target_id": "software"
+    }
+  ],
+  "status": [
+    {
+      "value": true
+    }
+  ],
+  "title": [
+    {
+      "value": "CATMAID"
+    }
+  ],
+  "created": [
+    {
+      "value": 1383854587
+    }
+  ],
+  "promote": [
+    {
+      "value": true
+    }
+  ],
+  "sticky": [
+    {
+      "value": false
+    }
+  ],
+  "default_langcode": [
+    {
+      "value": true
+    }
+  ],
+  "path": [],
+  "synonyms": [],
+  "body": [
+    {
+      "value": "**Collaborative Annotation Toolkit for Massive Amounts of Image Data**\r\n\r\nCATMAID is a Collaborative Annotation Toolkit for Massive Amounts of Image Data. It is designed to navigate, share and collaboratively annotate massive image data sets of biological specimens. The interface is inspired by GoogleMaps, with which it shares basic navigation concepts, enhanced to allow the exploration of 3D biological image data acquired by optical or physical sectioning microscopy techniques. The interface enables seamless sharing of regions of interest through bookmarks and synchronized navigation through multiple registered data sets.\r\n\r\nWith massive biological image data sets it is unrealistic to create a sustainable centralized repository. A unique feature of CATMAID is its partially decentralized architecture where the presented image data can reside on any Internet accessible server and yet can be easily cross-referenced in the central database. In this way no image data are duplicated and the data producers retain full control over their images.\r\n\r\nCATMAID is intended to serve as data sharing platform for biologists using high-resolution imaging techniques to probe large specimens. Any high-throughput, high-content imaging project such as gene expression pattern screens would benefit from the interface for data sharing and annotation.",
+      "format": "basic_html",
+      "summary": ""
+    }
+  ],
+  "field_attribution_instructions": [],
+  "field_free_tagging": [],
+  "field_has_author": [
+    {
+      "value": "Stephan Saalfeld, Albert Cardona, Volker Hartenstein, Pavel Toman?\u00e1k"
+    }
+  ],
+  "field_has_biological_terms": [],
+  "field_has_comparison": [],
+  "field_has_documentation": [],
+  "field_has_doi": [],
+  "field_has_entry_curator": [
+    {
+      "target_id": "80"
+    }
+  ],
+  "field_has_function": [],
+  "field_has_interaction_level": [
+    {
+      "target_id": "3574"
+    }
+  ],
+  "field_has_license": [
+    {
+      "value": "?"
+    }
+  ],
+  "field_has_location": [
+    {
+      "uri": "http://fly.mpi-cbg.de/~saalfeld/catmaid/",
+      "title": "",
+      "options": []
+    }
+  ],
+  "field_has_programming_language": [],
+  "field_has_reference_publication": [],
+  "field_has_topic": [],
+  "field_has_usage_example": [],
+  "field_image": [],
+  "field_is_compatible_with": [],
+  "field_is_covered_by_training_mat": [],
+  "field_is_dependent_of": [],
+  "field_license_openness": [
+    {
+      "target_id": "3570"
+    }
+  ],
+  "field_platform": [],
+  "field_supported_image_dimension": [],
+  "field_type": [
+    {
+      "target_id": "3567"
+    }
+  ]
+}
