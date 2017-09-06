@@ -11,9 +11,8 @@ root_url = 'http://dev-bise2.pantheonsite.io'
 
 http = urllib3.PoolManager()
 # auth_header = urllib3.util.make_headers(basic_auth='admin:admin')
-# migration:Mimimig!2020
-# auth_header = urllib3.util.make_headers(basic_auth='perrine:P3rr1ne80!')
-auth_header = urllib3.util.make_headers(basic_auth='migration:Mimimig2020')
+# auth_header = urllib3.util.make_headers(basic_auth='user:passwd!')
+auth_header = urllib3.util.make_headers(basic_auth='user:passwd')
 http = ProxyManager("http://cache.ha.univ-nantes.fr:3128/", headers=auth_header)
 http.headers.update(auth_header)
 http.headers['Accept'] = 'application/json'
