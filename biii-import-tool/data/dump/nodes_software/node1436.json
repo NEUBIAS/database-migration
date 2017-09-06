@@ -1,0 +1,126 @@
+{
+  "uuid": [
+    {
+      "value": "c7caf2ed-cabc-4425-8020-9901f6d27a73"
+    }
+  ],
+  "vid": [
+    {
+      "value": 1436
+    }
+  ],
+  "langcode": [
+    {
+      "value": "en"
+    }
+  ],
+  "type": [
+    {
+      "target_id": "software"
+    }
+  ],
+  "status": [
+    {
+      "value": true
+    }
+  ],
+  "title": [
+    {
+      "value": "KNIME Image Processing and Analysis"
+    }
+  ],
+  "created": [
+    {
+      "value": 1381496674
+    }
+  ],
+  "promote": [
+    {
+      "value": true
+    }
+  ],
+  "sticky": [
+    {
+      "value": false
+    }
+  ],
+  "default_langcode": [
+    {
+      "value": true
+    }
+  ],
+  "path": [],
+  "synonyms": [],
+  "body": [
+    {
+      "value": "KNIME is a user-friendly graphical workbench for the entire analysis process: data access, data transformation, initial investigation, powerful predictive analytics, visualisation and reporting. Its an open integration platform and provides over 1000 modules (nodes), including those of the KNIME community and its extensive partner network. One of these extensions adds the ability for image analysis allowing to process, segment and further analyze images which can easily be used in combination with the other extensions, potentially from other fields.",
+      "format": "basic_html",
+      "summary": ""
+    }
+  ],
+  "field_attribution_instructions": [],
+  "field_free_tagging": [],
+  "field_has_author": [
+    {
+      "value": null
+    }
+  ],
+  "field_has_biological_terms": [],
+  "field_has_comparison": [],
+  "field_has_documentation": [],
+  "field_has_doi": [],
+  "field_has_entry_curator": [
+    {
+      "target_id": "80"
+    }
+  ],
+  "field_has_function": [],
+  "field_has_interaction_level": [
+    {
+      "target_id": "3574"
+    }
+  ],
+  "field_has_license": [
+    {
+      "value": "GPL"
+    }
+  ],
+  "field_has_location": [
+    {
+      "uri": "http://tech.knime.org/community/image-processing",
+      "title": "",
+      "options": []
+    }
+  ],
+  "field_has_programming_language": [
+    {
+      "target_id": "3591"
+    }
+  ],
+  "field_has_reference_publication": [],
+  "field_has_topic": [],
+  "field_has_usage_example": [],
+  "field_image": [],
+  "field_is_compatible_with": [],
+  "field_is_covered_by_training_mat": [],
+  "field_is_dependent_of": [],
+  "field_license_openness": [
+    {
+      "target_id": "3575"
+    }
+  ],
+  "field_platform": [
+    {
+      "target_id": "31"
+    },
+    {
+      "target_id": "32"
+    }
+  ],
+  "field_supported_image_dimension": [],
+  "field_type": [
+    {
+      "target_id": "3567"
+    }
+  ]
+}

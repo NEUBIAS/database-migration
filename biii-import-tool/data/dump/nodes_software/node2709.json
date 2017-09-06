@@ -1,0 +1,125 @@
+{
+  "uuid": [
+    {
+      "value": "b9aecde6-d817-4a94-80fd-bc1dcdef177f"
+    }
+  ],
+  "vid": [
+    {
+      "value": 2709
+    }
+  ],
+  "langcode": [
+    {
+      "value": "en"
+    }
+  ],
+  "type": [
+    {
+      "target_id": "software"
+    }
+  ],
+  "status": [
+    {
+      "value": true
+    }
+  ],
+  "title": [
+    {
+      "value": "ViBE-Z"
+    }
+  ],
+  "created": [
+    {
+      "value": 1476699079
+    }
+  ],
+  "promote": [
+    {
+      "value": true
+    }
+  ],
+  "sticky": [
+    {
+      "value": false
+    }
+  ],
+  "default_langcode": [
+    {
+      "value": true
+    }
+  ],
+  "path": [],
+  "synonyms": [],
+  "body": [
+    {
+      "value": "The Virtual Brain Explorer (ViBE-Z) is a software 2708 that automatically maps gene expression data with cellular resolution to a 3D standard larval zebrafish (Danio rerio) brain. It automatically detects 14 predefined anatomical landmarks for aligning data. It also offers a database and atlas.\r\nThe ViBE-Z database, atlas and software are provided via a web interface. A data preparation step is needed in order to provide the right input data and format.",
+      "format": "basic_html",
+      "summary": ""
+    }
+  ],
+  "field_attribution_instructions": [],
+  "field_free_tagging": [],
+  "field_has_author": [
+    {
+      "value": "Olaf Ronneberger"
+    }
+  ],
+  "field_has_biological_terms": [],
+  "field_has_comparison": [],
+  "field_has_documentation": [],
+  "field_has_doi": [],
+  "field_has_entry_curator": [
+    {
+      "target_id": "80"
+    }
+  ],
+  "field_has_function": [],
+  "field_has_interaction_level": [
+    {
+      "target_id": "3574"
+    }
+  ],
+  "field_has_license": [
+    {
+      "value": "web"
+    }
+  ],
+  "field_has_location": [
+    {
+      "uri": "http://vibez.informatik.uni-freiburg.de/",
+      "title": "",
+      "options": []
+    }
+  ],
+  "field_has_programming_language": [],
+  "field_has_reference_publication": [
+    {
+      "uri": "10.1038/nmeth.2076",
+      "title": "",
+      "options": []
+    }
+  ],
+  "field_has_topic": [],
+  "field_has_usage_example": [],
+  "field_image": [],
+  "field_is_compatible_with": [],
+  "field_is_covered_by_training_mat": [],
+  "field_is_dependent_of": [],
+  "field_license_openness": [
+    {
+      "target_id": "3570"
+    }
+  ],
+  "field_platform": [],
+  "field_supported_image_dimension": [
+    {
+      "target_id": "3562"
+    }
+  ],
+  "field_type": [
+    {
+      "target_id": "3567"
+    }
+  ]
+}
