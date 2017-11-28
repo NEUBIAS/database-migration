@@ -14,38 +14,33 @@ class ImportTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # cls.connection = {
-        #     'username': 'migration',
-        #     'password': 'Mimimig2020',
-        #     'url': 'http://dev-bise2.pantheonsite.io',
-        #     'proxy': 'http://cache.ha.univ-nantes.fr:3128'
-        # }
         cls.connection = {
-            'username': 'migration',
-            'password': 'Mimimig2020',
-            'url': 'http://dev-bise2.pantheonsite.io'
+            'username': 'USERNAME',
+            'password': 'PASSWORD',
+            'url': 'http://biii.eu',
+            'proxy': 'PROXY_URL'
         }
         cls.jsonFile = "./data/dump/nodes_software/node2098.json"
-        cls.jsonDir = "./data/dump/nodes_software"
+        cls.jsonDir = ""
 
     @classmethod
     def tearDownClass(cls):
         print()
 
-    @unittest.skip("rest_api_is_alive")
+    # @unittest.skip("rest_api_is_alive")
     def test_biseEU_alive(self):
         c = self.connection
         http = get_web_service(c)
         req = http.request('GET', c["url"] + '/node/52?_format=json')
         data = json.loads(req.data.decode('utf-8'))
-        # print(json.dumps(data, indent=4, sort_keys=True))
+        print(json.dumps(data, indent=4, sort_keys=True))
         self.assertEquals("SOAX", data["title"][0]["value"])
         self.assertEquals("Ting Xu ", data["field_has_author"][0]["value"])
 
     @unittest.skip("single import")
     def test_biseEU_single_import(self):
         c = self.connection
-        import_entry(self.jsonFile, c)
+        import_entry('/Users/gaignard-a/Desktop/data-florian/workflow/node2464.json', c)
 
     @unittest.skip("bulk import")
     def test_biseEU_bulk_import(self):
@@ -70,18 +65,19 @@ class ImportTest(unittest.TestCase):
         data = get_software_list(c)
         print(json.dumps(data, indent=4, sort_keys=True))
 
-    @unittest.skip("get software ID from title")
+    # @unittest.skip("get software ID from title")
     def test_get_id(self):
         c = self.connection
         id = get_software_node_id(c,'ImarisAnnotate')
         print('ImarisAnnotate --> '+str(id))
-        self.assertEqual(id, '196')
+        self.assertEqual(id, '510')
 
     @unittest.skip("update dependencies from JSON dir")
     def test_update_dependencies_in_directory(self):
         c = self.connection
         # map = build_title_old_new_id_from_directory(self.jsonDir)
-        update_dependencies_in_directory('/Users/gaignard-a/Desktop/data-florian/**/*.json', c)
+        # update_dependencies_in_directory('/Users/gaignard-a/Desktop/data-florian/**/*.json', c)
+        update_dependencies_in_directory('/Users/gaignard-a/Desktop/dependentNodes/*.json', c)
         # print(json.dumps(map, indent=4))
 
     @unittest.skip("show duplicate IDs")
@@ -113,8 +109,6 @@ class ImportTest(unittest.TestCase):
         print(str(len(duplicates))+' duplicates:')
         for d in duplicates:
             print('\t'+d)
-
-
 
 
 if __name__ == '__main__':
