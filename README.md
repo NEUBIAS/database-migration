@@ -6,4 +6,4 @@ This repository hosts migration scripts and sample intermediate data.
 2. Conversion of biii DB entries into JSON files
 3. HTTP POST of JSON files into the new Drupal site through its REST API -> http://dev-bise2.pantheonsite.io
 
-### Tooling
+### Quick how-to
