@@ -5,9 +5,9 @@ import glob
 from rdflib import Graph
 
 from src.biseEU_importer import get_software_list
-from src.jsonLDexport import get_node_as_linked_data
-from src.jsonLDexport import import_to_graph
-from src.jsonLDexport import rdfize
+from src.biseEU_LD_export import get_node_as_linked_data
+from src.biseEU_LD_export import import_to_graph
+from src.biseEU_LD_export import rdfize
 
 class UsersTest(unittest.TestCase):
 
