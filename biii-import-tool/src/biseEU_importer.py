@@ -4,18 +4,6 @@ import json
 import os
 import glob
 
-# import logging
-
-# logger = logging.getLogger('biseEU_importer')
-# logger.setLevel(logging.DEBUG)
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# ch = logging.StreamHandler()
-# ch.setLevel(logging.DEBUG)
-# ch.setFormatter(formatter)
-# logger.addHandler(ch)
-
-# logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.DEBUG)
-
 parser = argparse.ArgumentParser(description="""
 JSON import tool for the NeuBIAS Bise.eu registry.
 
@@ -102,7 +90,7 @@ def import_entry(file_path, connection):
     Imports an entry to the Drupal backend via its REST API 
     :param file_path: the path of the JSON file to be imported
     :param connection: the connection information (user, password, url, and proxy)
-    :return: a server string message, null if the import was not processed
+    :return: a server string message informing on the status of the import
     """
     if os.path.exists(file_path):
         http = get_web_service(connection)
@@ -135,6 +123,10 @@ def import_entry(file_path, connection):
 
 
 def validate_doi(json_entry):
+    """
+    :param json_entry:
+    :return: if a DOI don't starts with http://, returns a DOI prefixed with http://
+    """
     if ('field_has_reference_publication' in json_entry) and json_entry["field_has_reference_publication"]:
         doi = str(json_entry["field_has_reference_publication"][0]["uri"])
         if not doi.startswith("http://"):
@@ -188,7 +180,7 @@ def get_software_title_list(connection):
 
 def get_software_list(connection):
     """
-    Get the JSON ouput of the Software view of the drupal site given in parameter
+    Get the JSON output of the Software view of the drupal site given in parameter
     :param connection:
     :return:
     """
@@ -241,7 +233,10 @@ def update_dependencies_in_directory(path_str, connection):
     for file_path in f_list:
         with open(file_path, 'r') as data_file:
             data_str = data_file.read()
-        data = json.loads(data_str)
+        try:
+            data = json.loads(data_str)
+        except json.decoder.JSONDecodeError as e:
+            print("parsing ERROR "+e.msg)
 
         old_entries.append({
             "title": data["title"][0]["value"],
@@ -258,13 +253,14 @@ def update_dependencies_in_directory(path_str, connection):
                 for d in old_entry['dependencies']:
                     dep = get_software_from_id(old_entries,d['target_id'])
                     # print(old_entry['title']+" -- depends on --> "+str(dep['title']))
-                    if get_software_from_title(new_entries,str(dep['title'])):
-                        # print('\tnew IDs :: '+get_software_from_title(new_entries,old_entry['title'])['nid']
-                        #    + " -- depends on --> " +get_software_from_title(new_entries,str(dep['title']))['nid'])
-                        deps.append(get_software_from_title(new_entries,str(dep['title']))['nid'])
-                    else:
-                        print('!! Missing imported entries ')
-                        print('\t' + old_entry['title'] + ' or ' + str(dep['title']))
+                    if not dep is None:
+                        if get_software_from_title(new_entries,str(dep['title'])):
+                            # print('\tnew IDs :: '+get_software_from_title(new_entries,old_entry['title'])['nid']
+                            #    + " -- depends on --> " +get_software_from_title(new_entries,str(dep['title']))['nid'])
+                            deps.append(get_software_from_title(new_entries,str(dep['title']))['nid'])
+                        else:
+                            print('!! Missing imported entries ')
+                            print('\t' + old_entry['title'] + ' or ' + str(dep['title']))
 
                 update_dependency(new_id,
                               deps,
