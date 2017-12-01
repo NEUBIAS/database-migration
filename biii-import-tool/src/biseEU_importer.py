@@ -25,24 +25,24 @@ parser.add_argument('-d', '--input_directory', metavar='input_directory', type=s
 
 
 def main():
-    print('NeuBIAS import tool - v0.1a')
+    #print('NeuBIAS import tool - v0.1a')
     args = parser.parse_args()
 
     if args.td is None:
         print('Please fill the -td or --target_drupal_url parameter')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
     if args.u is None:
         print('Please fill the -u or --username parameter')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
     if args.p is None:
         print('Please fill the -p or --password parameter')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
     if (args.i is None) and (args.d is None):
         print('Please fill the -i or -d parameters')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
 
     connection = {
@@ -66,8 +66,8 @@ def get_web_service(connection):
     """
     http = urllib3.PoolManager()
     auth_header = urllib3.util.make_headers(basic_auth=connection["username"] + ':' + connection["password"])
-    if ('proxy' in connection.keys()) and connection["proxy"]:
-        http = urllib3.ProxyManager(connection["proxy"], headers=auth_header)
+    if ('proxy_url' in connection.keys()) and connection["proxy_url"]:
+        http = urllib3.ProxyManager(connection["proxy_url"], headers=auth_header)
     http.headers.update(auth_header)
     http.headers['Accept'] = 'application/json'
     http.headers['Content-type'] = 'application/json'
