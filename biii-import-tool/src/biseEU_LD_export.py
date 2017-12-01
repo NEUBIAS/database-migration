@@ -1,14 +1,13 @@
 import urllib3
 import json
 import argparse
+from argparse import RawTextHelpFormatter
 import time
 import sys, os
 from rdflib import Graph
 
-from biseEU_importer import get_web_service
-from biseEU_importer import get_software_list
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.biseEU_importer import get_web_service
+from src.biseEU_importer import get_software_list
 
 parser = argparse.ArgumentParser(description="""
 RDF export tool for the NeuBIAS Bise.eu registry.
@@ -17,7 +16,7 @@ Sample Usage :
     python biseEU_LD_export.py -u <USERNAME> -p <PASSWORD> -td http://dev-bise2.pantheonsite.io -px <PROXY_URL> -id 67
     python biseEU_LD_export.py -u <USERNAME> -p <PASSWORD> -td http://dev-bise2.pantheonsite.io -px <PROXY_URL> -test
     python biseEU_LD_export.py -u <USERNAME> -p <PASSWORD> -td http://dev-bise2.pantheonsite.io -px <PROXY_URL> -dump  
-                                 """)
+                                 """, formatter_class=RawTextHelpFormatter)
 parser.add_argument('-px', '--proxy', metavar='proxy', type=str, help='your proxy URL, including the proxy port',
                     dest='px', required=False)
 parser.add_argument('-td', '--target_drupal_url', metavar='target_drupal_url', type=str, help='the target drupal url',
@@ -30,24 +29,24 @@ parser.add_argument('-test', '--test_dump', help='test the RDF dump on the first
 
 
 def main():
-    print('NeuBIAS LD export tool - v0.1a')
+    #print('NeuBIAS LD export tool - v0.1a')
     args = parser.parse_args()
 
     if args.td is None:
         print('Please fill the -td or --target_drupal_url parameter')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
     if args.u is None:
         print('Please fill the -u or --username parameter')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
     if args.p is None:
         print('Please fill the -p or --password parameter')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
-    if (args.id is None) and (args.dump is None) and (args.test is None):
+    if (args.id is None) and (args.dump is False) and (args.test is False):
         print('Please fill the -id, -dump, or -test parameters')
-        parser.print_usage()
+        parser.print_help()
         exit(0)
 
     connection = {
@@ -61,7 +60,8 @@ def main():
         graph = Graph()
         raw_jld = get_node_as_linked_data(args.id, connection)
         import_to_graph(graph, raw_jld)
-        print(str(graph.serialize(format='turtle').decode('utf-8')))
+        sys.stdout.buffer.write(graph.serialize(format='turtle'))
+        # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
     if args.test:
         softwares = get_software_list(connection)
@@ -76,7 +76,7 @@ def main():
                 break
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
-        graph.serialize(destination='neubias-dump-'+time.strftime("%Y%m%d")+'.ttl', format='turtle')
+        graph.serialize(destination='neubias-dump-'+time.strftime("%Y%m%d")+'.ttl', format='turtle', encoding='utf-8')
         # graph.serialize(destination='neubias-dump-09192017.json-ld', format='json-ld')
 
     if args.dump:
@@ -84,7 +84,7 @@ def main():
         graph = Graph()
         count = 0
         for s in softwares:
-            print(str(count) + '. Exporting ' + s['title'] + ': ' + s['nid'])
+            print(str(count) + '. Exporting ' + s['title'] + ': ' + s['nid']) #TODO fix utf8 in titles
             node_ld = get_node_as_linked_data(s['nid'], connection)
             import_to_graph(graph, node_ld)
             count += 1
@@ -92,7 +92,7 @@ def main():
             #     break
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
-        graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.ttl', format='turtle')
+        graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.ttl', format='turtle', encoding='utf-8')
         # graph.serialize(destination='neubias-dump-09192017.json-ld', format='json-ld')
 
 
