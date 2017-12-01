@@ -18,7 +18,7 @@ class ImportTest(unittest.TestCase):
             'username': 'USERNAME',
             'password': 'PASSWORD',
             'url': 'http://biii.eu',
-            'proxy': 'PROXY_URL'
+            'proxy_url': ''
         }
         cls.jsonFile = "./data/dump/nodes_software/node2098.json"
         cls.jsonDir = ""
@@ -65,7 +65,7 @@ class ImportTest(unittest.TestCase):
         data = get_software_list(c)
         print(json.dumps(data, indent=4, sort_keys=True))
 
-    # @unittest.skip("get software ID from title")
+    @unittest.skip("get software ID from title")
     def test_get_id(self):
         c = self.connection
         id = get_software_node_id(c,'ImarisAnnotate')
