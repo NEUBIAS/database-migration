@@ -3,7 +3,7 @@ import json
 import argparse
 from argparse import RawTextHelpFormatter
 import time
-import sys, os
+import sys
 from rdflib import Graph
 
 from src.biseEU_importer import get_web_service
@@ -65,10 +65,15 @@ def main():
 
     if args.test:
         softwares = get_software_list(connection)
+        total = len(softwares)
         graph = Graph()
         count = 0
         for s in softwares:
-            print(str(count) + '. Exporting ' + s['title'] + ': ' + s['nid'])
+            sys.stdout.buffer.write(
+                'Exporting '.encode('utf-8') + s['title'].encode('utf-8') + ': '.encode('utf-8') + s['nid'].encode(
+                    'utf-8') + ' ['.encode('utf-8') + str(round(count * 100 / total)).encode(
+                    'utf-8') + '% done]\n'.encode('utf-8'))
+            sys.stdout.flush()
             node_ld = get_node_as_linked_data(s['nid'], connection)
             import_to_graph(graph, node_ld)
             count += 1
@@ -81,10 +86,12 @@ def main():
 
     if args.dump:
         softwares = get_software_list(connection)
+        total = len(softwares)
         graph = Graph()
         count = 0
         for s in softwares:
-            print(str(count) + '. Exporting ' + s['title'] + ': ' + s['nid']) #TODO fix utf8 in titles
+            sys.stdout.buffer.write('Exporting '.encode('utf-8') + s['title'].encode('utf-8') + ': '.encode('utf-8') + s['nid'].encode('utf-8') + ' ['.encode('utf-8') + str(round(count * 100 / total)).encode('utf-8') + '% done]\n'.encode('utf-8'))
+            sys.stdout.flush()
             node_ld = get_node_as_linked_data(s['nid'], connection)
             import_to_graph(graph, node_ld)
             count += 1
