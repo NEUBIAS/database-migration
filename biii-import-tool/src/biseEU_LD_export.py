@@ -3,6 +3,7 @@ import json
 import argparse
 from argparse import RawTextHelpFormatter
 import time
+import datetime
 import sys
 from rdflib import Graph
 
@@ -59,6 +60,7 @@ def main():
     if args.id:
         graph = Graph()
         raw_jld = get_node_as_linked_data(args.id, connection)
+        # raw_jld = get_node_as_bioschema(args.id, connection)
         import_to_graph(graph, raw_jld)
         sys.stdout.buffer.write(graph.serialize(format='turtle'))
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
@@ -75,14 +77,17 @@ def main():
                     'utf-8') + '% done]\n'.encode('utf-8'))
             sys.stdout.flush()
             node_ld = get_node_as_linked_data(s['nid'], connection)
+            # node_ld = get_node_as_bioschema(s['nid'], connection)
             import_to_graph(graph, node_ld)
             count += 1
             if count > 10:
                 break
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
-        graph.serialize(destination='neubias-dump-'+time.strftime("%Y%m%d")+'.ttl', format='turtle', encoding='utf-8')
-        # graph.serialize(destination='neubias-dump-09192017.json-ld', format='json-ld')
+        graph.serialize(destination='neubias-test-' + time.strftime("%Y%m%d") + '.ttl', format='turtle',
+                        encoding='utf-8')
+        graph.serialize(destination='neubias-test-' + time.strftime("%Y%m%d") + '.json-ld', format='json-ld',
+                        encoding='utf-8')
 
     if args.dump:
         softwares = get_software_list(connection)
@@ -93,6 +98,7 @@ def main():
             sys.stdout.buffer.write('Exporting '.encode('utf-8') + s['title'].encode('utf-8') + ': '.encode('utf-8') + s['nid'].encode('utf-8') + ' ['.encode('utf-8') + str(round(count * 100 / total)).encode('utf-8') + '% done]\n'.encode('utf-8'))
             sys.stdout.flush()
             node_ld = get_node_as_linked_data(s['nid'], connection)
+            # node_ld = get_node_as_bioschema(s['nid'], connection)
             import_to_graph(graph, node_ld)
             count += 1
             # if count > 10:
@@ -100,7 +106,7 @@ def main():
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
         graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.ttl', format='turtle', encoding='utf-8')
-        # graph.serialize(destination='neubias-dump-09192017.json-ld', format='json-ld')
+        graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.json-ld', format='json-ld', encoding='utf-8')
 
 
 def get_node_as_linked_data(node_id, connection):
@@ -123,6 +129,114 @@ def get_node_as_linked_data(node_id, connection):
         print(e)
         return None
 
+def get_node_as_bioschema(node_id, connection):
+    """
+    Transforms a Drupal node (http://biii.eu) of type Software into RDF, using Bioschema
+    and EDAM-Bioimaging ontologies
+    :param node_id: the drupal ID of the node for online retrieval
+    :param connection: credentials, possibly proxy, and URL to connect to
+    :return: a string representation of the corresponding JSON-LD document
+    """
+    http = get_web_service(connection)
+    try:
+        req = http.request('GET', connection["url"] + '/node/' + str(node_id) + '?_format=json')
+        entry = json.loads(req.data.decode('utf-8'))
+        # print(json.dumps(entry, indent=4, sort_keys=True))
+        # print()
+        return rdfize_bioschema_tool(entry)
+    except urllib3.exceptions.HTTPError as e:
+        print("Connection error")
+        print(e)
+        return None
+
+def rdfize_bioschema_tool(json_entry):
+    entry = json_entry
+    # print(json.dumps(entry, indent=4, sort_keys=True))
+
+    ctx = {
+        "@context": {
+            "@base": "http://schema.org/",
+            "dc": "http://dcterms/",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "description": "http://schema.org/description",
+            "citation": "http://schema.org/citation",
+            "name": "http://schema.org/name",
+            "featureList": "http://schema.org/featureList",
+            "license": "http://schema.org/license",
+            "publisher": "http://schema.org/publisher",
+            "applicationCategory": "http://schema.org/applicationCategory",
+            "dateCreated": "http://schema.org/dateCreated",
+            "dateModified": "http://schema.org/dateModified",
+            "softwareRequirements": "http://schema.org/softwareRequirements"
+        }
+    }
+
+    out = {}
+    # this data export only apply to softwares, so we check first if the type is a software
+    if str(entry["type"][0]["target_id"]) == 'software':
+        out["@id"] = "http://biii.eu/node/" + str(entry["nid"][0]["value"])
+        out["@type"] = "SoftwareApplication"
+
+        if entry["body"] and entry["body"][0] and entry["body"][0]["value"]:
+            out["description"] = entry["body"][0]["value"]
+
+        if entry["title"] and entry["title"][0] and entry["title"][0]["value"]:
+            out["name"] = entry["title"][0]["value"]
+
+        for item in entry['field_has_function']:
+            if not "featureList" in out.keys():
+                out["featureList"] = [{"@id": item["target_uuid"]}]
+            else:
+                out["featureList"].append({"@id": item["target_uuid"]})
+
+            if not "applicationCategory" in out.keys():
+                out["applicationCategory"] = [{"@id": item["target_uuid"]}]
+            else:
+                out["applicationCategory"].append({"@id": item["target_uuid"]})
+
+        for item in entry['field_has_reference_publication']:
+            if not "citation" in out.keys():
+                out["citation"] = []
+            if item["uri"]:
+                out["citation"].append({"@id": item["uri"]})
+            if item["title"]:
+                out["citation"].append(item["title"])
+
+        for item in entry['field_has_license']:
+            if not "license" in out.keys():
+                out["license"] = []
+            if item["value"]:
+                out["license"].append(item["value"])
+
+        for item in entry['field_has_author']:
+            if not "publisher" in out.keys():
+                out["publisher"] = []
+            if item["value"]:
+                out["publisher"].append(item["value"])
+
+        for item in entry['created']:
+            if item["value"]:
+                date = datetime.datetime.fromtimestamp(item["value"])
+                out["dateCreated"] = str(date.isoformat())
+
+        for item in entry['changed']:
+            if item["value"]:
+                date = datetime.datetime.fromtimestamp(item["value"])
+                out["dateModified"] = str(date.isoformat())
+
+        for item in entry['field_is_dependent_of']:
+            if not "softwareRequirements" in out.keys():
+                out["softwareRequirements"] = []
+            if item["target_id"]:
+                out["softwareRequirements"].append({"@id": "http://biii.eu/node/" +
+                                                           str(item["target_id"])})
+
+        out.update(ctx)
+
+    # print(json.dumps(out, indent=4, sort_keys=True))
+
+    raw_jld = json.dumps(out)
+    return raw_jld
 
 def rdfize(json_entry):
 
@@ -144,7 +258,8 @@ def rdfize(json_entry):
             "hasFunction": "nb:hasFunction",
             "hasTopic": "nb:hasTopic",
             "hasIllustration": "nb:hasIllustration",
-            "requires": "nb:requires"
+            "requires": "nb:requires",
+            "citation": "nb:hasReferencePublication"
         }
     }
     entry["@id"] = str(entry["nid"][0]["value"])
@@ -165,8 +280,10 @@ def rdfize(json_entry):
             entry["hasIllustration"].append(item["url"])
 
     for item in entry['field_has_author']:
-        # print(item)
-        entry["hasAuthor"] = item["value"]
+        if not "hasAuthor" in entry.keys():
+            entry["hasAuthor"] = []
+        if item["value"]:
+            entry["hasAuthor"].append(item["value"])
 
     # for item in entry['field_has_entry_curator']:
         # print(item)
@@ -192,6 +309,14 @@ def rdfize(json_entry):
                 entry["requires"] = [{"@id": "http://biii.eu/node/"+str(item["target_id"])}]
             else:
                 entry["requires"].append({"@id": "http://biii.eu/node/"+str(item["target_id"])})
+
+    for item in entry['field_has_reference_publication']:
+        if not "citation" in entry.keys():
+            entry["citation"] = []
+        if item["uri"]:
+            entry["citation"].append({"@id": item["uri"]})
+        if item["title"]:
+            entry["citation"].append(item["title"])
 
     raw_jld = json.dumps(entry)
     return raw_jld
