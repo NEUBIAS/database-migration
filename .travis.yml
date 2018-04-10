@@ -7,7 +7,7 @@ python:
   - "3.6" 
 
 install:
-  - pip install rdflib urllib3
+  - pip install rdflib rdflib-jsonld urllib3
 
 script: 
   - ./run_ld_export.sh -td http://www.biii.eu -u alban.gaignard -p alban80 -test
