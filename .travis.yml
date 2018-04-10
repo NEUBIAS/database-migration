@@ -10,11 +10,11 @@ install:
   - pip install rdflib rdflib-jsonld urllib3
 
 script: 
-  - ./run_ld_export.sh -td http://www.biii.eu -u alban.gaignard -p alban80 -dump
+  - ./run_ld_export.sh -td http://www.biii.eu -u alban.gaignard -p alban80 -test
   
 after_success:
   - git clone https://github.com/NeuBIAS/bise-core-ontology
-  - mv neubias-dump-$(date +%Y%m%d).ttl bise-core-ontology/data/latest/neubias-latest.ttl
+  - mv neubias-test-$(date +%Y%m%d).ttl bise-core-ontology/data/latest/neubias-latest.ttl
   - cd bise-core-ontology
   - git commit -am "nightly built data dump"
   - git push origin
