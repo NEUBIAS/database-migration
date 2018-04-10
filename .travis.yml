@@ -1,5 +1,13 @@
-before_script: cd biii-import-tool
+before_script: 
+  - cd biii-import-tool
+
 language: python
+
+python:
+  - "3.6" 
+
+install:
+  - pip install rdflib urllib3
+
 script: 
-- pip install rdflib urllib3
-- ./run_ld_export.sh -td http://www.biii.eu -u alban.gaignard -p alban80 -test
+  - ./run_ld_export.sh -td http://www.biii.eu -u alban.gaignard -p alban80 -test
