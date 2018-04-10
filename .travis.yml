@@ -15,5 +15,6 @@ script:
 after_success:
   - git clone https://github.com/NeuBIAS/bise-core-ontology
   - mv neubias-test-$(date +%Y%m%d).ttl bise-core-ontology/data/latest/neubias-latest.ttl
+  - cd bise-core-ontology
   - git commit -am "nightly built data dump"
   - git push origin
