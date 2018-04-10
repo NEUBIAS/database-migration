@@ -1,3 +1,5 @@
 before_script: cd biii-import-tool
+language: python
 script: 
+- pip install rdflib
 - ./run_ld_export.sh -td http://www.biii.eu -u alban.gaignard -p alban80 -test
