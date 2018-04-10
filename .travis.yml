@@ -1,0 +1,3 @@
+before_script: cd biii-import-tool
+script: 
+- ls
