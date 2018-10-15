@@ -198,7 +198,7 @@ def rdfize_bioschema_tool(json_entry):
             if not "citation" in out.keys():
                 out["citation"] = []
             if item["uri"]:
-                out["citation"].append({"@id": item["uri"]})
+                out["citation"].append({"@id": item["uri"].strip()})
             if item["title"]:
                 out["citation"].append(item["title"])
 
@@ -314,7 +314,7 @@ def rdfize(json_entry):
         if not "citation" in entry.keys():
             entry["citation"] = []
         if item["uri"]:
-            entry["citation"].append({"@id": item["uri"]})
+            entry["citation"].append({"@id": item["uri"].strip()})
         if item["title"]:
             entry["citation"].append(item["title"])
 
