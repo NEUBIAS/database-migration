@@ -121,8 +121,8 @@ def get_node_as_linked_data(node_id, connection):
     try:
         req = http.request('GET', connection["url"] + '/node/' + str(node_id) + '?_format=json')
         entry = json.loads(req.data.decode('utf-8'))
-        # print(json.dumps(entry, indent=4, sort_keys=True))
-        # print()
+        print(json.dumps(entry, indent=4, sort_keys=True))
+        print()
         return rdfize(entry)
     except urllib3.exceptions.HTTPError as e:
         print("Connection error")
@@ -259,7 +259,8 @@ def rdfize(json_entry):
             "hasTopic": "nb:hasTopic",
             "hasIllustration": "nb:hasIllustration",
             "requires": "nb:requires",
-            "citation": "nb:hasReferencePublication"
+            "citation": "nb:hasReferencePublication",
+            "location": "nb:hasLocation",
         }
     }
     entry["@id"] = str(entry["nid"][0]["value"])
@@ -314,9 +315,17 @@ def rdfize(json_entry):
         if not "citation" in entry.keys():
             entry["citation"] = []
         if item["uri"]:
-            entry["citation"].append({"@id": item["uri"]})
+            entry["citation"].append({"@id": item["uri"].strip()})
         if item["title"]:
             entry["citation"].append(item["title"])
+
+    for item in entry['field_has_location']:
+        if not "location" in entry.keys():
+            entry["location"] = []
+        if item["uri"]:
+            entry["location"].append({"@id": item["uri"].strip()})
+        if item["title"]:
+            entry["location"].append(item["title"])
 
     raw_jld = json.dumps(entry)
     return raw_jld
