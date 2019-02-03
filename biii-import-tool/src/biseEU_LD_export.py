@@ -121,8 +121,8 @@ def get_node_as_linked_data(node_id, connection):
     try:
         req = http.request('GET', connection["url"] + '/node/' + str(node_id) + '?_format=json')
         entry = json.loads(req.data.decode('utf-8'))
-        print(json.dumps(entry, indent=4, sort_keys=True))
-        print()
+        # print(json.dumps(entry, indent=4, sort_keys=True))
+        # print()
         return rdfize(entry)
     except urllib3.exceptions.HTTPError as e:
         print("Connection error")
@@ -184,15 +184,16 @@ def rdfize_bioschema_tool(json_entry):
             out["name"] = entry["title"][0]["value"]
 
         for item in entry['field_has_function']:
-            if not "featureList" in out.keys():
-                out["featureList"] = [{"@id": item["target_uuid"]}]
-            else:
-                out["featureList"].append({"@id": item["target_uuid"]})
+            if "target_uuid" in item.keys():
+                if not "featureList" in out.keys():
+                    out["featureList"] = [{"@id": item["target_uuid"]}]
+                else:
+                    out["featureList"].append({"@id": item["target_uuid"]})
 
-            if not "applicationCategory" in out.keys():
-                out["applicationCategory"] = [{"@id": item["target_uuid"]}]
-            else:
-                out["applicationCategory"].append({"@id": item["target_uuid"]})
+                if not "applicationCategory" in out.keys():
+                    out["applicationCategory"] = [{"@id": item["target_uuid"]}]
+                else:
+                    out["applicationCategory"].append({"@id": item["target_uuid"]})
 
         for item in entry['field_has_reference_publication']:
             if not "citation" in out.keys():
@@ -240,92 +241,99 @@ def rdfize_bioschema_tool(json_entry):
 
 def rdfize(json_entry):
 
-    entry = json_entry
-    # print(json.dumps(entry, indent=4, sort_keys=True))
-    # print()
+    try :
+        entry = json_entry
+        # print(json.dumps(entry, indent=4, sort_keys=True))
+        # print()
 
-    ctx = {
-        "@context": {
-            "@base": "http://biii.eu/node/",
-            "nb": "http://bise-eu.info/core-ontology#",
-            "dc": "http://dcterms/",
-            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        ctx = {
+            "@context": {
+                "@base": "http://biii.eu/node/",
+                "nb": "http://bise-eu.info/core-ontology#",
+                "dc": "http://dcterms/",
+                "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
 
-            "hasDescription": "rdfs:comment",
-            "hasTitle": "dc:title",
+                "hasDescription": "rdfs:comment",
+                "hasTitle": "dc:title",
 
-            "hasAuthor": "nb:hasAuthor",
-            "hasFunction": "nb:hasFunction",
-            "hasTopic": "nb:hasTopic",
-            "hasIllustration": "nb:hasIllustration",
-            "requires": "nb:requires",
-            "citation": "nb:hasReferencePublication",
-            "location": "nb:hasLocation",
+                "hasAuthor": "nb:hasAuthor",
+                "hasFunction": "nb:hasFunction",
+                "hasTopic": "nb:hasTopic",
+                "hasIllustration": "nb:hasIllustration",
+                "requires": "nb:requires",
+                "citation": "nb:hasReferencePublication",
+                "location": "nb:hasLocation",
+            }
         }
-    }
-    entry["@id"] = str(entry["nid"][0]["value"])
-    entry["@type"] = str(entry["type"][0]["target_id"])
-    entry.update(ctx)
+        entry["@id"] = str(entry["nid"][0]["value"])
+        entry["@type"] = str(entry["type"][0]["target_id"])
+        entry.update(ctx)
 
-    ######
-    if entry["body"] and entry["body"][0] and entry["body"][0]["value"] :
-        entry["hasDescription"] = entry["body"][0]["value"]
+        ######
+        if entry["body"] and entry["body"][0] and entry["body"][0]["value"] :
+            entry["hasDescription"] = entry["body"][0]["value"]
 
-    if entry["title"] and entry["title"][0] and entry["title"][0]["value"]:
-        entry["hasTitle"] = entry["title"][0]["value"]
+        if entry["title"] and entry["title"][0] and entry["title"][0]["value"]:
+            entry["hasTitle"] = entry["title"][0]["value"]
 
-    for item in entry['field_image']:
-        if not "hasIllustration" in entry.keys():
-            entry["hasIllustration"] = [item["url"]]
-        else:
-            entry["hasIllustration"].append(item["url"])
-
-    for item in entry['field_has_author']:
-        if not "hasAuthor" in entry.keys():
-            entry["hasAuthor"] = []
-        if item["value"]:
-            entry["hasAuthor"].append(item["value"])
-
-    # for item in entry['field_has_entry_curator']:
-        # print(item)
-
-    for item in entry['field_has_function']:
-        # print(item)
-        if not "hasFunction" in entry.keys():
-            entry["hasFunction"] = [{"@id": item["target_uuid"]}]
-        else:
-            entry["hasFunction"].append({"@id": item["target_uuid"]})
-
-    for item in entry['field_has_topic']:
-        # print(item)
-        if not "hasTopic" in entry.keys():
-            entry["hasTopic"] = [{"@id": item["target_uuid"]}]
-        else:
-            entry["hasTopic"].append({"@id": item["target_uuid"]})
-
-    for item in entry['field_is_dependent_of']:
-        # print(item)
-        if "target_id" in item.keys():
-            if not "requires" in entry.keys():
-                entry["requires"] = [{"@id": "http://biii.eu/node/"+str(item["target_id"])}]
+        for item in entry['field_image']:
+            if not "hasIllustration" in entry.keys():
+                entry["hasIllustration"] = [item["url"]]
             else:
-                entry["requires"].append({"@id": "http://biii.eu/node/"+str(item["target_id"])})
+                entry["hasIllustration"].append(item["url"])
 
-    for item in entry['field_has_reference_publication']:
-        if not "citation" in entry.keys():
-            entry["citation"] = []
-        if item["uri"]:
-            entry["citation"].append({"@id": item["uri"].strip()})
-        if item["title"]:
-            entry["citation"].append(item["title"])
+        for item in entry['field_has_author']:
+            if not "hasAuthor" in entry.keys():
+                entry["hasAuthor"] = []
+            if item["value"]:
+                entry["hasAuthor"].append(item["value"])
 
-    for item in entry['field_has_location']:
-        if not "location" in entry.keys():
-            entry["location"] = []
-        if item["uri"]:
-            entry["location"].append({"@id": item["uri"].strip()})
-        if item["title"]:
-            entry["location"].append(item["title"])
+        # for item in entry['field_has_entry_curator']:
+            # print(item)
+
+        for item in entry['field_has_function']:
+            # print(item)
+            if "target_uuid" in item.keys():
+                if not "hasFunction" in entry.keys():
+                    entry["hasFunction"] = [{"@id": item["target_uuid"]}]
+                else:
+                    entry["hasFunction"].append({"@id": item["target_uuid"]})
+
+        for item in entry['field_has_topic']:
+            # print(item)
+            if "target_uuid" in item.keys():
+                if not "hasTopic" in entry.keys():
+                    entry["hasTopic"] = [{"@id": item["target_uuid"]}]
+                else:
+                    entry["hasTopic"].append({"@id": item["target_uuid"]})
+
+        for item in entry['field_is_dependent_of']:
+            # print(item)
+            if "target_id" in item.keys():
+                if not "requires" in entry.keys():
+                    entry["requires"] = [{"@id": "http://biii.eu/node/"+str(item["target_id"])}]
+                else:
+                    entry["requires"].append({"@id": "http://biii.eu/node/"+str(item["target_id"])})
+
+        for item in entry['field_has_reference_publication']:
+            if not "citation" in entry.keys():
+                entry["citation"] = []
+            if item["uri"]:
+                entry["citation"].append({"@id": item["uri"].strip()})
+            if item["title"]:
+                entry["citation"].append(item["title"])
+
+        for item in entry['field_has_location']:
+            if not "location" in entry.keys():
+                entry["location"] = []
+            if item["uri"]:
+                entry["location"].append({"@id": item["uri"].strip()})
+            if item["title"]:
+                entry["location"].append(item["title"])
+    except KeyError as e:
+        print(e)
+        print(json.dumps(entry, indent=4, sort_keys=True))
+        sys.exit(-1)
 
     raw_jld = json.dumps(entry)
     return raw_jld
