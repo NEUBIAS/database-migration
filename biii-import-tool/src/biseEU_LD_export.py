@@ -5,6 +5,7 @@ from argparse import RawTextHelpFormatter
 import time
 import datetime
 import sys
+import urllib
 from rdflib import Graph
 
 from src.biseEU_importer import get_web_service
@@ -84,10 +85,15 @@ def main():
                 break
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
-        graph.serialize(destination='neubias-test-' + time.strftime("%Y%m%d") + '.ttl', format='turtle',
+        try:
+            graph.serialize(destination='neubias-test-' + time.strftime("%Y%m%d") + '.ttl', format='turtle',
                         encoding='utf-8')
-        graph.serialize(destination='neubias-test-' + time.strftime("%Y%m%d") + '.json-ld', format='json-ld',
+            graph.serialize(destination='neubias-test-' + time.strftime("%Y%m%d") + '.json-ld', format='json-ld',
                         encoding='utf-8')
+        except Exception as e:
+            print(e)
+            sys.exit(-1)
+
 
     if args.dump:
         softwares = get_software_list(connection)
@@ -105,9 +111,12 @@ def main():
             #     break
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
 
-        graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.ttl', format='turtle', encoding='utf-8')
-        graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.json-ld', format='json-ld', encoding='utf-8')
-
+        try:
+            graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.json-ld', format='json-ld', encoding='utf-8')
+            graph.serialize(destination='neubias-dump-' + time.strftime("%Y%m%d") + '.ttl', format='turtle', encoding='utf-8')
+        except Exception as e:
+            print(e)
+            sys.exit(-1)
 
 def get_node_as_linked_data(node_id, connection):
     """
@@ -230,7 +239,7 @@ def rdfize_bioschema_tool(json_entry):
                 out["softwareRequirements"] = []
             if item["target_id"]:
                 out["softwareRequirements"].append({"@id": "http://biii.eu/node/" +
-                                                           str(item["target_id"])})
+                                                           str(item["target_id"]).strip()})
 
         out.update(ctx)
 
@@ -270,7 +279,7 @@ def rdfize(json_entry):
         entry.update(ctx)
 
         ######
-        if entry["body"] and entry["body"][0] and entry["body"][0]["value"] :
+        if entry["body"] and entry["body"][0] and entry["body"][0]["value"]:
             entry["hasDescription"] = entry["body"][0]["value"]
 
         if entry["title"] and entry["title"][0] and entry["title"][0]["value"]:
@@ -319,7 +328,7 @@ def rdfize(json_entry):
             if not "citation" in entry.keys():
                 entry["citation"] = []
             if item["uri"]:
-                entry["citation"].append({"@id": item["uri"].strip()})
+                entry["citation"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
             if item["title"]:
                 entry["citation"].append(item["title"])
 
@@ -327,7 +336,7 @@ def rdfize(json_entry):
             if not "location" in entry.keys():
                 entry["location"] = []
             if item["uri"]:
-                entry["location"].append({"@id": item["uri"].strip()})
+                entry["location"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
             if item["title"]:
                 entry["location"].append(item["title"])
     except KeyError as e:
@@ -335,6 +344,7 @@ def rdfize(json_entry):
         print(json.dumps(entry, indent=4, sort_keys=True))
         sys.exit(-1)
 
+    # print(json.dumps(entry, indent=4, sort_keys=True))
     raw_jld = json.dumps(entry)
     return raw_jld
 
@@ -346,8 +356,12 @@ def import_to_graph(graph, raw_jld):
     :param raw_jld: a string representation of a JSON-LD document
     :return: the populated RDF graph
     """
-    g = graph
-    g.parse(data=raw_jld, format='json-ld')
+    try:
+        g = graph
+        g.parse(data=raw_jld, format='json-ld')
+    except Exception:
+        print('Exception!')
+        sys.exit(-1)
     # print(g.serialize(format='turtle').decode('utf-8'))
     # print()
     # print(g.serialize(format = 'json-ld', indent = 4).decode('utf-8'))
