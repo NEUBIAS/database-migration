@@ -62,6 +62,7 @@ def main():
         graph = Graph()
         raw_jld = get_node_as_linked_data(args.id, connection)
         # raw_jld = get_node_as_bioschema(args.id, connection)
+        print(json.dumps(raw_jld , indent=4, sort_keys=True))
         import_to_graph(graph, raw_jld)
         sys.stdout.buffer.write(graph.serialize(format='turtle'))
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
@@ -272,6 +273,14 @@ def rdfize(json_entry):
                 "requires": "nb:requires",
                 "citation": "nb:hasReferencePublication",
                 "location": "nb:hasLocation",
+                "dateCreated": {
+                    "@id": "dc:created",
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+                },
+                "dateModified": {
+                    "@id": "dc:modified",
+                    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+                }
             }
         }
         entry["@id"] = str(entry["nid"][0]["value"])
@@ -339,6 +348,17 @@ def rdfize(json_entry):
                 entry["location"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
             if item["title"]:
                 entry["location"].append(item["title"])
+
+        for item in entry['created']:
+            if item["value"]:
+                date = datetime.datetime.fromtimestamp(item["value"])
+                entry["dateCreated"] = str(date.isoformat())
+
+        for item in entry['changed']:
+            if item["value"]:
+                date = datetime.datetime.fromtimestamp(item["value"])
+                entry["dateModified"] = str(date.isoformat())
+
     except KeyError as e:
         print(e)
         print(json.dumps(entry, indent=4, sort_keys=True))
