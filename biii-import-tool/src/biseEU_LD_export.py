@@ -62,7 +62,7 @@ def main():
         graph = Graph()
         raw_jld = get_node_as_linked_data(args.id, connection)
         # raw_jld = get_node_as_bioschema(args.id, connection)
-        print(json.dumps(raw_jld , indent=4, sort_keys=True))
+        #print(json.dumps(raw_jld , indent=4, sort_keys=True))
         import_to_graph(graph, raw_jld)
         sys.stdout.buffer.write(graph.serialize(format='turtle'))
         # print(str(graph.serialize(format='turtle').decode('utf-8')))
@@ -131,7 +131,7 @@ def get_node_as_linked_data(node_id, connection):
     try:
         req = http.request('GET', connection["url"] + '/node/' + str(node_id) + '?_format=json')
         entry = json.loads(req.data.decode('utf-8'))
-        # print(json.dumps(entry, indent=4, sort_keys=True))
+        print(json.dumps(entry, indent=4, sort_keys=True))
         # print()
         return rdfize(entry)
     except urllib3.exceptions.HTTPError as e:
@@ -251,7 +251,7 @@ def rdfize_bioschema_tool(json_entry):
 
 def rdfize(json_entry):
 
-    try :
+    try:
         entry = json_entry
         # print(json.dumps(entry, indent=4, sort_keys=True))
         # print()
@@ -267,6 +267,7 @@ def rdfize(json_entry):
                 "hasTitle": "dc:title",
 
                 "hasAuthor": "nb:hasAuthor",
+                "license": "nb:hasLicense",
                 "hasFunction": "nb:hasFunction",
                 "hasTopic": "nb:hasTopic",
                 "hasIllustration": "nb:hasIllustration",
@@ -280,7 +281,9 @@ def rdfize(json_entry):
                 "dateModified": {
                     "@id": "dc:modified",
                     "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
-                }
+                },
+                "openess": "nb:openess",
+                "hasImplementation": "nb:hasImplementation"
             }
         }
         entry["@id"] = str(entry["nid"][0]["value"])
@@ -348,6 +351,28 @@ def rdfize(json_entry):
                 entry["location"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
             if item["title"]:
                 entry["location"].append(item["title"])
+
+        for item in entry['field_has_license']:
+            if not "license" in entry.keys():
+                entry["license"] = []
+            if item["value"]:
+                entry["license"].append(item["value"])
+
+        for item in entry['field_license_openness']:
+            if "target_id" in item.keys():
+                if not "openess" in entry.keys():
+                    entry["openess"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
+                else:
+                    entry["openess"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
+        for item in entry['field_has_implementation']:
+            #print(item)
+            if "target_id" in item.keys():
+                if not "hasImplementation" in entry.keys():
+                    entry["hasImplementation"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
+                else:
+                    entry["hasImplementation"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
 
         for item in entry['created']:
             if item["value"]:
