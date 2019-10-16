@@ -274,6 +274,11 @@ def rdfize(json_entry):
                 "requires": "nb:requires",
                 "citation": "nb:hasReferencePublication",
                 "location": "nb:hasLocation",
+                "hasDocumentation": "nb:hasDocumentation",
+                "hasComparison": "nb:hasComparison",
+                "hasTrainingMaterial": "nb:hasTrainingMaterial",
+                "hasDOI": "nb:hasDOI",
+                "hasUsageExample": "nb:hasUsageExample",
                 "dateCreated": {
                     "@id": "dc:created",
                     "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
@@ -404,6 +409,45 @@ def rdfize(json_entry):
                     entry["hasSupportedImageDimension"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
                 else:
                     entry["hasSupportedImageDimension"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
+        for item in entry['field_is_covered_by_training_mat']:
+            if "target_id" in item.keys():
+                if not "hasTrainingMaterial" in entry.keys():
+                    entry["hasTrainingMaterial"] = [{"@id": "http://biii.eu/node/"+str(item["target_id"])}]
+                else:
+                    entry["hasTrainingMaterial"].append({"@id": "http://biii.eu/node/"+str(item["target_id"])})
+
+        for item in entry['field_has_documentation']:
+            if not "uri" in entry.keys():
+                entry["hasDocumentation"] = []
+            if item["uri"]:
+                entry["hasDocumentation"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
+            if item["title"]:
+                entry["hasDocumentation"].append(item["title"])
+
+        for item in entry['field_has_comparison']:
+            if not "uri" in entry.keys():
+                entry["hasComparison"] = []
+            if item["uri"]:
+                entry["hasComparison"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
+            if item["title"]:
+                entry["hasComparison"].append(item["title"])
+
+        for item in entry['field_has_usage_example']:
+            if not "uri" in entry.keys():
+                entry["hasUsageExample"] = []
+            if item["uri"]:
+                entry["hasUsageExample"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
+            if item["title"]:
+                entry["hasUsageExample"].append(item["title"])
+
+        for item in entry['field_has_doi']:
+            if not "uri" in entry.keys():
+                entry["hasDOI"] = []
+            if item["uri"]:
+                entry["hasDOI"].append({"@id": urllib.parse.quote(item["uri"], safe=':/')})
+            if item["title"]:
+                entry["hasDOI"].append(item["title"])
 
 
         for item in entry['created']:
