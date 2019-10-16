@@ -283,6 +283,10 @@ def rdfize(json_entry):
                     "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
                 },
                 "openess": "nb:openess",
+                "hasType": "nb:hasType",
+                "hasPlatform": "nb:hasPlatform",
+                "hasProgrammingLanguage": "nb:hasProgrammingLanguage",
+                "hasSupportedImageDimension": "nb:hasSupportedImageDimension",
                 "hasImplementation": "nb:hasImplementation"
             }
         }
@@ -372,6 +376,34 @@ def rdfize(json_entry):
                     entry["hasImplementation"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
                 else:
                     entry["hasImplementation"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
+        for item in entry['field_type']:
+            if "target_id" in item.keys():
+                if not "hasType" in entry.keys():
+                    entry["hasType"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
+                else:
+                    entry["hasType"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
+        for item in entry['field_has_programming_language']:
+            if "target_id" in item.keys():
+                if not "hasProgrammingLanguage" in entry.keys():
+                    entry["hasProgrammingLanguage"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
+                else:
+                    entry["hasProgrammingLanguage"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
+        for item in entry['field_platform']:
+            if "target_id" in item.keys():
+                if not "hasPlatform" in entry.keys():
+                    entry["hasPlatform"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
+                else:
+                    entry["hasPlatform"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
+
+        for item in entry['field_supported_image_dimension']:
+            if "target_id" in item.keys():
+                if not "hasSupportedImageDimension" in entry.keys():
+                    entry["hasSupportedImageDimension"] = [{"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])}]
+                else:
+                    entry["hasSupportedImageDimension"].append({"@id": "http://biii.eu/taxonomy/term/"+str(item["target_id"])})
 
 
         for item in entry['created']:
