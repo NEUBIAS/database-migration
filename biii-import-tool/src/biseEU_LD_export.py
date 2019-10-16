@@ -131,7 +131,7 @@ def get_node_as_linked_data(node_id, connection):
     try:
         req = http.request('GET', connection["url"] + '/node/' + str(node_id) + '?_format=json')
         entry = json.loads(req.data.decode('utf-8'))
-        print(json.dumps(entry, indent=4, sort_keys=True))
+        # print(json.dumps(entry, indent=4, sort_keys=True))
         # print()
         return rdfize(entry)
     except urllib3.exceptions.HTTPError as e:
